@@ -1,5 +1,6 @@
 package com.seleniumGrid;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -14,25 +16,40 @@ public class AmazonTest {
 
 	public WebDriver driver;
 
-	@Parameters({ "browser" })
+	@Parameters({"browser"})
 	@Test
-	public void setup(String browser) throws Exception {
+	public void setup(@Optional("chrome") String browser) throws InterruptedException {
 		
 		System.out.println("Remote Driver Connectivity is Started!");
 
 		if (browser.equalsIgnoreCase("chrome")) {
 
-			driver = new RemoteWebDriver(new URL("http://localhost:4444"), new ChromeOptions());
+			try {
+				driver = new RemoteWebDriver(new URL("http://localhost:4444"), new ChromeOptions());
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Chrome Browser Launched");
 
 		} else if (browser.equalsIgnoreCase("firefox")) {
  
-			driver = new RemoteWebDriver(new URL("http://localhost:4444"), new FirefoxOptions());
+			try {
+				driver = new RemoteWebDriver(new URL("http://localhost:4444"), new FirefoxOptions());
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Firefox Browser Launched");
 
 		} else if (browser.equalsIgnoreCase("edge")) {
 
-			driver = new RemoteWebDriver(new URL("http://localhost:4444"), new EdgeOptions());
+			try {
+				driver = new RemoteWebDriver(new URL("http://localhost:4444"), new EdgeOptions());
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Edge Browser Launched");
 
 		}
